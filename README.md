@@ -21,28 +21,30 @@ The examples below assume the imager is installed in a mcimager directory.
 ------------
 
 Getting a Minecraft characters skin
+
 ------------
 
 To get a Minecraft characters skin, all you have to do is the following:
-  	
-  		<img src="mcimager/skin/mouseymars.png" alt="mouseymars" />
-  
-Of course, replace mouseymars with the name of the character you wish to get the skin for.
 
-Getting a Minecraft characters head
+  		<img src="mcimager/skin/mouseymars.png" alt="mouseymars" />
+  		
 ------------
 
 To get a Minecraft characters head, all you have to do is the following:
   	
   		<img src="mcimager/head/mouseymars.png" alt="mouseymars" />
+  	
+Or with a custom size; just replace 32 with a number of your choice.
   
-Of course, replace mouseymars with the name of the character you wish to get the skin for.
-
-Getting a Minecraft characters head with helm
+  		<img src="mcimager/head/32/mouseymars.png" alt="mouseymars" />
+  	
 ------------
 
 To get a Minecraft characters head with helm, all you have to do is the following:
   	
   		<img src="mcimager/helm/mouseymars.png" alt="mouseymars" />
+  	
+Or with a custom size; just replace 32 with a number of your choice.
   
-Of course, replace mouseymars with the name of the character you wish to get the skin for.
+  		<img src="mcimager/helm/32/mouseymars.png" alt="mouseymars" />
+  	
