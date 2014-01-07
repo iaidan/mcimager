@@ -17,6 +17,7 @@ Usage
 ===============
 
 The examples below assume the imager is installed in a mcimager directory.
+
 ------------
 
 Getting a Minecraft characters skin
