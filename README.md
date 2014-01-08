@@ -7,7 +7,8 @@ Features
 
  * Get Minecraft character skins
  * Get Minecraft character heads
- * Get Minecraft character heads with helmets
+ * Get Minecraft character helms (heads with helmets)
+ * Caches players skins, heads and helms
 
 Dependencies
 ------------
@@ -37,7 +38,7 @@ Or with a custom size; just replace 32 with a number of your choice.
   		<img src="mcimager/head/32/mouseymars.png" alt="mouseymars" />
   		
 
-###Getting a Minecraft characters head with helm######
+###Getting a Minecraft characters helm######
 
 To get a Minecraft characters head with helm, all you have to do is the following:
   	
