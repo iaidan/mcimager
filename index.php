@@ -18,7 +18,7 @@ if (isset($_REQUEST['url']) && !empty($_REQUEST['url'])) {//get url (passed from
 }
 
 //image cache locations
-$mcSkinCache = "cache/skin/{$mc}-{$size}.png";
+$mcSkinCache = "cache/skin/{$mc}.png";
 $mcHeadCache = "cache/head/{$mc}-{$size}.png";
 $mcHelmCache = "cache/helm/{$mc}-{$size}.png";
 
