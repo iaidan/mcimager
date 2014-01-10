@@ -36,7 +36,7 @@ if ($data = @file_get_contents($dateCache)) {
 
 $mysqldateToday = strtotime(date('Y-m-d H:i:s'));
 
-if (true || $cache === false || $mysqldate === false || ($mysqldateToday - $mysqldate) >= 600) {
+if ($cache === false || $mysqldate === false || ($mysqldateToday - $mysqldate) >= 600) {
 	$skinUrl = "http://www.minecraft.net/skin/{$mc}.png";
 	
 	$skinGrab = @file_get_contents($skinUrl);
@@ -46,19 +46,16 @@ if (true || $cache === false || $mysqldate === false || ($mysqldateToday - $mysq
 		$skinGrab = @file_get_contents($skinUrl);
 	}
 	
-	$skinImage = imagecreatefromstring($skinGrab);//load skin image
-	imagecolortransparent($skinImage, imagecolorallocate($skinImage, 0, 0, 0));
 	file_put_contents($mcSkinCache, $skinGrab);//save skin
+	$skinImage = imagecreatefrompng($mcSkinCache);//load skin image
 	
 	//head
 	$headImage = imagecreatetruecolor($size, $size);//create blank canvas
-	imagecolortransparent($headImage,imagecolorallocate($headImage, 0, 0, 0));
 	imagecopyresampled($headImage, $skinImage, 0, 0, 8, 8, $size, $size, 8, 8);//copy head onto canvas
 	imagepng($headImage, $mcHeadCache);//save head
 		
 	//helm
 	$tempImage = imagecreatetruecolor($size, $size);//create blank canvas
-	imagecolortransparent($tempImage, imagecolorallocate($tempImage, 0, 0, 0));
 	imagesavealpha($tempImage, true);
 	imagealphablending($tempImage, false);
 	
@@ -86,7 +83,6 @@ if (true || $cache === false || $mysqldate === false || ($mysqldateToday - $mysq
 	$helmImage = imagecreatefrompng($mcHeadCache);//load head
 	
 	if ($helmExists) {
-		imagecolortransparent($helmImage, imagecolorallocate($helmImage, 0, 0, 0));
 		imagecopyresampled($helmImage, $tempImage, 0, 0, 0, 0, $size, $size, $size, $size);//move helm onto head
 	}
 	
