@@ -36,7 +36,7 @@ if ($data = @file_get_contents($dateCache)) {
 
 $mysqldateToday = strtotime(date('Y-m-d H:i:s'));
 
-if ($cache === false || $mysqldate === false || ($mysqldateToday - $mysqldate) >= 600) {
+if (true || $cache === false || $mysqldate === false || ($mysqldateToday - $mysqldate) >= 600) {
 	$skinUrl = "http://www.minecraft.net/skin/{$mc}.png";
 	
 	$skinGrab = @file_get_contents($skinUrl);
@@ -47,21 +47,49 @@ if ($cache === false || $mysqldate === false || ($mysqldateToday - $mysqldate) >
 	}
 	
 	$skinImage = imagecreatefromstring($skinGrab);//load skin image
+	imagecolortransparent($skinImage, imagecolorallocate($skinImage, 0, 0, 0));
 	file_put_contents($mcSkinCache, $skinGrab);//save skin
 	
 	//head
 	$headImage = imagecreatetruecolor($size, $size);//create blank canvas
+	imagecolortransparent($headImage,imagecolorallocate($headImage, 0, 0, 0));
 	imagecopyresampled($headImage, $skinImage, 0, 0, 8, 8, $size, $size, 8, 8);//copy head onto canvas
 	imagepng($headImage, $mcHeadCache);//save head
 		
 	//helm
 	$tempImage = imagecreatetruecolor($size, $size);//create blank canvas
-	$helmImage = imagecreatefrompng($mcHeadCache);//load head
-	imagesavealpha($tempImage, true);//set alpha
-	imagealphablending($tempImage, false);//remove alpha blending
+	imagecolortransparent($tempImage, imagecolorallocate($tempImage, 0, 0, 0));
+	imagesavealpha($tempImage, true);
+	imagealphablending($tempImage, false);
 	
 	imagecopyresampled($tempImage, $skinImage, 0, 0, 40, 8, $size, $size, 8, 8);//move helm onto canvas
-	imagecopy($helmImage, $tempImage, 0, 0, 0, 0, $size, $size);//move helm onto head
+	
+	//Check if a helm is in the skin
+	$helmExists = false;
+	
+	for($y = 0; $y <= $size; $y++) {
+		for($x = 0; $x <= $size; $x++) {
+			$rgb = @imagecolorat($tempImage, $x, $y);//get rgb at point
+			$colors = @imagecolorsforindex($tempImage, $rgb);//formate rgb
+			
+			if (is_array($colors) && $colors['alpha'] !== 0) {//check for non-transparent pixel
+				$helmExists = true;
+				break;
+			}
+		}
+		
+		if ($helmExists) {
+			break;
+		}
+	}
+	
+	$helmImage = imagecreatefrompng($mcHeadCache);//load head
+	
+	if ($helmExists) {
+		imagecolortransparent($helmImage, imagecolorallocate($helmImage, 0, 0, 0));
+		imagecopyresampled($helmImage, $tempImage, 0, 0, 0, 0, $size, $size, $size, $size);//move helm onto head
+	}
+	
 	imagepng($helmImage, $mcHelmCache);//save head
     
 	//save cache date file
