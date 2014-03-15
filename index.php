@@ -18,12 +18,12 @@ if (isset($_REQUEST['url']) && !empty($_REQUEST['url'])) {//get url (passed from
 }
 
 //image cache locations
-$mcSkinCache = "cache/skin/{$mc}.png";
-$mcHeadCache = "cache/head/{$mc}-{$size}.png";
-$mcHelmCache = "cache/helm/{$mc}-{$size}.png";
+$mcSkinCache = strtolower("cache/skin/{$mc}.png");
+$mcHeadCache = strtolower("cache/head/{$mc}-{$size}.png");
+$mcHelmCache = strtolower("cache/helm/{$mc}-{$size}.png");
 
 //location to store last cache date
-$dateCache   = "tmp/{$mc}-{$size}.cache.txt";
+$dateCache   = strtolower("tmp/{$mc}-{$size}.cache.txt");
 
 header("Content-Type: image/png");//make output png
 
@@ -36,7 +36,7 @@ if ($data = @file_get_contents($dateCache)) {
 
 $mysqldateToday = strtotime(date('Y-m-d H:i:s'));
 
-if ($cache === false || $mysqldate === false || ($mysqldateToday - $mysqldate) >= 600) {
+if ($cache === false || $mysqldate === false || ($mysqldateToday - $mysqldate) >= 1800) {
 	$skinUrl = "http://www.minecraft.net/skin/{$mc}.png";
 	
 	$skinGrab = @file_get_contents($skinUrl);
