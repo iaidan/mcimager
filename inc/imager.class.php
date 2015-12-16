@@ -32,6 +32,8 @@ class Imager {
 			$user = $apiLookup['id'];
 		}
 
+		$user = str_replace("-", "", $user);
+
 		return $user;
 	}
 
