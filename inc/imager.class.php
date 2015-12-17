@@ -56,7 +56,7 @@ class Imager {
 		}
 
 		if (!isset($skinGrab) || empty($skinGrab)) {
-			//$skinGrab = @file_get_contents($this->defaultSkin);
+			$skinGrab = @file_get_contents($this->defaultSkin);
 		}
 
 		return $skinGrab;
