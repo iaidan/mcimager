@@ -16,10 +16,10 @@ if (empty($handle->url) || !in_array($handle->get(0), array("head", "helm", "ski
 $size = 32;
 $user = "";
 
-if ($handle->get(1) !== null) {
+if (!empty($handle->get(1))) {
 	$handle1 = str_replace(".png", "", $handle->get(1));
 
-	if ($handle->get(2)  !== null) {
+	if (!empty($handle->get(2))) {
 	 	$handle2 = str_replace(".png", "", $handle->get(2));
 
 		if (is_numeric($handle1)) {
