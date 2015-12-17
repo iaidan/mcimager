@@ -16,11 +16,24 @@ if (empty($handle->url) || !in_array($handle->get(0), array("head", "helm", "ski
 $size = 32;
 $user = "";
 
-if (!is_numeric($handle->get(1))) {
-	$user = str_replace(".png", "", $handle->get(1));
+if ($handle->get(1) !== null) {
+	$handle1 = str_replace(".png", "", $handle->get(1));
+
+	if ($handle->get(2)  !== null) {
+	 	$handle2 = str_replace(".png", "", $handle->get(2));
+
+		if (is_numeric($handle1)) {
+			$size = $handle1;
+			$user = $handle2;
+		} else {
+			$size = $handle2;
+			$user = $handle1;
+		}
+	} else {
+		$user = $handle1;
+	}
 } else {
-	$size = $handle->get(1);
-	$user = str_replace(".png", "", $handle->get(2));
+	die();
 }
 
 $imager = new Imager($user, $cache);
