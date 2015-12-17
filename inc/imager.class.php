@@ -5,6 +5,7 @@ class Imager {
 	private $base = "https://api.mojang.com";
 	private $sessionBase = "https://sessionserver.mojang.com/session";
 	private $defaultSkin = "http://www.minecraft.net/skin/char.png";
+	private $legacyBase = "https://s3.amazonaws.com/MinecraftSkins";
 	private $cacheTimeout = 120;
 
 	private $user;
@@ -44,11 +45,18 @@ class Imager {
 			$properties = base64_decode($sessionLookup['properties'][0]['value']);
 			$properties = json_decode($properties, true);
 
-			$skinGrab = file_get_contents($properties['textures']['SKIN']['url']);
+			if (empty($properties['textures'])) {
+				if (isset($properties['profileName'])) {
+					$properties['profileName'] = strtolower($properties['profileName']);
+					$skinGrab = file_get_contents("{$this->legacyBase}/{$properties['profileName']}.png");
+				}
+			} else {
+				$skinGrab = file_get_contents($properties['textures']['SKIN']['url']);
+			}
 		}
 
-		if (!isset($skinGrab)) {
-			$skinGrab = @file_get_contents($this->defaultSkin);
+		if (!isset($skinGrab) || empty($skinGrab)) {
+			//$skinGrab = @file_get_contents($this->defaultSkin);
 		}
 
 		return $skinGrab;
